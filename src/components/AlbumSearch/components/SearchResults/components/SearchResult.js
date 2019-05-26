@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Image } from "components/ui";
-import { truncate } from "../../../styled-utils";
+import { truncate } from "styled-utils";
 
 const Container = styled.button`
   align-items: center;

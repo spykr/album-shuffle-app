@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
-  html, body {
+  html, body, #root {
     font-family: Roboto, sans-serif;
     height: 100%;
     min-width: 320px;

@@ -5,12 +5,13 @@ import { Loader } from "components/ui";
 
 const Container = styled.div`
   background-color: black;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-height: 320px;
+  max-height: 270px;
   overflow-y: scroll;
-  position: relative;
+  position: absolute;
   width: 100%;
 
   ${p =>
