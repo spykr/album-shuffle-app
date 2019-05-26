@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader";
 import styled from "styled-components";
-import AlbumGrid from "components/AlbumGrid";
-import AlbumSearch from "components/AlbumSearch/AlbumSearch";
+import Main from "scenes/Main";
+import AlbumDetail from "scenes/AlbumDetail";
 
 const StyledApp = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
@@ -22,8 +23,20 @@ const App = () => {
 
   return (
     <StyledApp>
-      <AlbumSearch onSelectResult={album => setAlbums([...albums, album])} />
-      <AlbumGrid albums={albums} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => <Main albums={albums} setAlbums={setAlbums} />}
+        />
+        <Route
+          exact
+          path="/album/:index"
+          render={props => (
+            <AlbumDetail albums={albums} index={props.match.params.index} />
+          )}
+        />
+      </Switch>
     </StyledApp>
   );
 };

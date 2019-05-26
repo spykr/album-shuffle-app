@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
 import App from "scenes/App/App";
@@ -16,10 +17,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <React.Fragment>
+  <Router>
     <GlobalStyle />
     <App />
-  </React.Fragment>,
+  </Router>,
   document.getElementById("root"),
 );
 

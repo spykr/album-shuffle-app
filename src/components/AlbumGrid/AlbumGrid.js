@@ -22,8 +22,8 @@ const StyledAlbumGrid = styled.div`
 const AlbumGrid = ({ albums }) => {
   return (
     <StyledAlbumGrid>
-      {albums.map(album => (
-        <Album key={album.url} album={album} />
+      {albums.map((album, i) => (
+        <Album key={album.url} album={album} index={i} />
       ))}
     </StyledAlbumGrid>
   );

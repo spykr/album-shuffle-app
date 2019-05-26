@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Image } from "components/ui";
 import { truncate } from "styled-utils";
 
-const StyledAlbum = styled.button`
+const StyledAlbum = styled(Link)`
   border: 0;
   cursor: pointer;
   line-height: 0;
@@ -72,9 +73,9 @@ const AlbumTitle = styled.span`
   margin-top: 4px;
 `;
 
-const Album = ({ album }) => {
+const Album = ({ album, index }) => {
   return (
-    <StyledAlbum>
+    <StyledAlbum to={`/album/${index}`}>
       <AlbumImage alt={album.name} src={album.image[3]["#text"]} />
       <AlbumInfo>
         <AlbumArtist>{album.artist}</AlbumArtist>
