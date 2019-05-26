@@ -33,7 +33,13 @@ const App = () => {
           exact
           path="/album/:index"
           render={props => (
-            <AlbumDetail albums={albums} index={props.match.params.index} />
+            <AlbumDetail
+              albums={albums}
+              index={props.match.params.index}
+              onDelete={album =>
+                setAlbums(albums.filter(a => a.url !== album.url))
+              }
+            />
           )}
         />
       </Switch>
