@@ -12,11 +12,15 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, onSelectResult }) => {
   return (
     <Container>
       {results.map(result => (
-        <SearchResult key={result.url} result={result} />
+        <SearchResult
+          key={result.url}
+          result={result}
+          onSelect={() => onSelectResult(result)}
+        />
       ))}
     </Container>
   );

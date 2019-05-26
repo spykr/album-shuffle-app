@@ -44,9 +44,9 @@ const Album = styled.span`
   width: 100%;
 `;
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, onSelect }) => {
   return (
-    <Container>
+    <Container onClick={onSelect}>
       <Image alt={result.name} src={result.image[0]["#text"]} />
       <TextContainer>
         <Artist>{result.artist}</Artist>
