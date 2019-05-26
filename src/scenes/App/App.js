@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader";
+import shuffle from "lodash/shuffle";
 import styled from "styled-components";
 import Main from "scenes/Main";
 import AlbumDetail from "scenes/AlbumDetail";
@@ -21,13 +22,21 @@ const App = () => {
     localStorage.setItem("albums", JSON.stringify(albums));
   }, [albums]);
 
+  const shuffleAlbums = () => setAlbums(shuffle(albums));
+
   return (
     <StyledApp>
       <Switch>
         <Route
           exact
           path="/"
-          render={() => <Main albums={albums} setAlbums={setAlbums} />}
+          render={() => (
+            <Main
+              albums={albums}
+              setAlbums={setAlbums}
+              onShuffle={shuffleAlbums}
+            />
+          )}
         />
         <Route
           exact
