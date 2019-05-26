@@ -14,6 +14,10 @@ const Container = styled.div`
   position: absolute;
   width: 100%;
 
+  @media (min-width: 768px) {
+    max-height: 350px;
+  }
+
   ${p =>
     p.loading &&
     !p.noResults &&

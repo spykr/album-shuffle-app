@@ -11,14 +11,20 @@ const Container = styled.button`
   display: flex;
   font-size: 14px;
   padding: 8px;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+    padding: 12px;
+  }
 `;
 
 const ImageContainer = styled.div`
   border-radius: 2px;
   flex-shrink: 0;
-  height: 32px;
+  height: 2.2em;
+  overflow: hidden;
   position: relative;
-  width: 32px;
+  width: 2.2em;
 `;
 
 const TextContainer = styled.div`
@@ -33,15 +39,15 @@ const TextContainer = styled.div`
 
 const Artist = styled.span`
   ${truncate}
-  font-size: 12px;
+  font-size: 0.85em;
   width: 100%;
 `;
 
 const Album = styled.span`
   ${truncate}
-  font-size: 14px;
+  font-size: 1em;
   font-weight: 700;
-  margin-top: 2px;
+  margin-top: 0.15em;
   width: 100%;
 `;
 
