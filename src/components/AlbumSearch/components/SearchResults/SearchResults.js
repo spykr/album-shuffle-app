@@ -5,7 +5,7 @@ import { Loader } from "components/ui";
 
 const Container = styled.div`
   background-color: black;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -14,7 +14,7 @@ const Container = styled.div`
   position: absolute;
   width: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: 600px) {
     max-height: 350px;
   }
 

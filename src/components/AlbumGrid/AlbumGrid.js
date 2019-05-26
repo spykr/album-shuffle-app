@@ -5,7 +5,6 @@ import Album from "./components/Album";
 const StyledAlbumGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  overflow-y: scroll;
 
   @media (min-width: 375px) {
     grid-template-columns: repeat(3, 1fr);

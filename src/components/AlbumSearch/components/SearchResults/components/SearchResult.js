@@ -12,7 +12,7 @@ const Container = styled.button`
   font-size: 14px;
   padding: 8px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 600px) {
     font-size: 18px;
     padding: 12px;
   }
