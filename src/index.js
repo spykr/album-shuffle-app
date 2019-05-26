@@ -6,12 +6,13 @@ import App from "scenes/App/App";
 import * as serviceWorker from "./serviceWorker";
 
 const GlobalStyle = createGlobalStyle`
-    ${normalize}
-    html, body {
-        font-family: Roboto, sans-serif;
-        height: 100%;
-        width: 100%;
-    }
+  ${normalize}
+  html, body {
+    font-family: Roboto, sans-serif;
+    height: 100%;
+    min-width: 320px;
+    width: 100%;
+  }
 `;
 
 ReactDOM.render(

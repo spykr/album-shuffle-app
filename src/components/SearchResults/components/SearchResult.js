@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Image } from "components/ui";
 import { truncate } from "../../../styled-utils";
 
 const Container = styled.button`
@@ -12,11 +13,11 @@ const Container = styled.button`
   padding: 8px;
 `;
 
-const Image = styled.img`
-  background-color: darkgrey;
+const ImageContainer = styled.div`
   border-radius: 2px;
   flex-shrink: 0;
   height: 32px;
+  position: relative;
   width: 32px;
 `;
 
@@ -47,7 +48,13 @@ const Album = styled.span`
 const SearchResult = ({ result, onSelect }) => {
   return (
     <Container onClick={onSelect}>
-      <Image alt={result.name} src={result.image[0]["#text"]} />
+      <ImageContainer>
+        <Image
+          alt={result.name}
+          src={result.image[0]["#text"]}
+          loaderProps={{ borderWidth: 2 }}
+        />
+      </ImageContainer>
       <TextContainer>
         <Artist>{result.artist}</Artist>
         <Album>{result.name}</Album>

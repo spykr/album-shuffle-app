@@ -4,6 +4,7 @@ import styled from "styled-components";
 import API from "services/api";
 import SearchResults from "components/SearchResults";
 import debounce from "lodash/debounce";
+import { Image } from "components/ui";
 
 const Input = styled.input`
   background-color: black;
@@ -48,7 +49,7 @@ const Album = styled.button`
   }
 `;
 
-const AlbumImage = styled.img`
+const AlbumImage = styled(Image)`
   height: 100%;
   left: 0;
   object-fit: cover;
@@ -58,25 +59,30 @@ const AlbumImage = styled.img`
 `;
 
 const App = () => {
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(null);
   const searchCall = useRef(
     debounce(search => {
+      setLoading(true);
       API.searchAlbums(search)
         .then(response => {
           console.log(response);
           const albums = response.data.results.albummatches.album;
           console.log(albums);
           setSearchResults(albums);
+          setLoading(false);
         })
-        .catch(error => console.error(error));
-    }, 500),
+        .catch(error => {
+          console.error(error);
+          setLoading(false);
+        });
+    }, 400),
   );
 
   useEffect(() => {
-    console.log(searchCall.current);
     if (search.trim() === "") {
-      setSearchResults([]);
+      setSearchResults(null);
     } else {
       searchCall.current(search);
     }
@@ -91,8 +97,9 @@ const App = () => {
         onChange={e => setSearch(e.target.value)}
         value={search}
       />
-      {searchResults.length > 0 && (
+      {(loading || searchResults !== null) && (
         <SearchResults
+          loading={loading}
           results={searchResults}
           onSelectResult={album => {
             setSearch("");
@@ -102,7 +109,7 @@ const App = () => {
       )}
       <AlbumGrid>
         {albums.map(album => (
-          <Album>
+          <Album key={album.url}>
             <AlbumImage alt={album.name} src={album.image[3]["#text"]} />
           </Album>
         ))}
