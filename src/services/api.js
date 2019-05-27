@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_CONFIG = ({ ...params } = {}) =>
   axios.create({
-    baseURL: "http://ws.audioscrobbler.com/2.0/",
+    baseURL: "https://ws.audioscrobbler.com/2.0/",
     headers: {
       Accept: "application/json",
       ContentType: "application/json",

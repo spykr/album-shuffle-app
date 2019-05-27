@@ -7,9 +7,11 @@ import * as Sentry from "@sentry/browser";
 import App from "scenes/App/App";
 import * as serviceWorker from "./serviceWorker";
 
+const localhost = window.location.hostname === "localhost";
+
 Sentry.init({
   dsn: "https://66913652bf51407ca0e93f7df0adf6e0@sentry.io/1468813",
-  environment: "production",
+  environment: localhost ? "development" : "production",
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -36,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <Router>
+  <Router basename={localhost ? "/" : "/albumshuffle"}>
     <GlobalStyle />
     <App />
   </Router>,

@@ -14,9 +14,10 @@ const ScrollArea = styled.div`
 `;
 
 const StyledAlbumDetail = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  height: 100%;
   padding: 32px;
 `;
 
@@ -204,7 +205,7 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
           <ButtonHeader>Listen on</ButtonHeader>
           <Button
             as="a"
-            href={`http://open.spotify.com/search/albums/${titleUrl}`}
+            href={`https://open.spotify.com/search/albums/${titleUrl}`}
             target="_blank"
             color="#1DB954"
             backgroundColor="#083719"
