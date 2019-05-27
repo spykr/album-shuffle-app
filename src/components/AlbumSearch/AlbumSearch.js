@@ -48,7 +48,7 @@ const Input = styled.input`
   }
 `;
 
-const AlbumSearch = ({ onSelectResult }) => {
+const AlbumSearch = ({ albums, onSelectResult }) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState(null);
@@ -101,6 +101,7 @@ const AlbumSearch = ({ onSelectResult }) => {
       )}
       {(loading || searchResults !== null) && (
         <SearchResults
+          albums={albums}
           loading={loading}
           results={searchResults}
           onSelectResult={album => {

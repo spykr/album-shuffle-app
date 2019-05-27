@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import findIndex from "lodash/findIndex";
 import SearchResult from "./components/SearchResult";
 import { Loader } from "components/ui";
 
@@ -35,7 +36,7 @@ const NoResultsText = styled.p`
   text-align: center;
 `;
 
-const SearchResults = ({ loading, results, onSelectResult }) => {
+const SearchResults = ({ albums, loading, results, onSelectResult }) => {
   const noResults = results && results.length === 0;
   return (
     <Container loading={loading} noResults={noResults}>
@@ -46,6 +47,7 @@ const SearchResults = ({ loading, results, onSelectResult }) => {
             key={result.url}
             result={result}
             onSelect={() => onSelectResult(result)}
+            disabled={findIndex(albums, a => a.url === result.url) !== -1}
           />
         ))}
       {loading && <Loader />}

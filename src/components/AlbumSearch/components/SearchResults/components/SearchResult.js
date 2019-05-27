@@ -17,6 +17,20 @@ const Container = styled.button`
     font-size: 18px;
     padding: 12px;
   }
+
+  ${p =>
+    p.disabled &&
+    `
+    opacity: 0.5;
+  `}
+
+  i {
+    font-size: 24px;
+
+    @media (min-width: 600px) {
+      font-size: 32px;
+    }
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -52,9 +66,9 @@ const Album = styled.span`
   width: 100%;
 `;
 
-const SearchResult = ({ result, onSelect }) => {
+const SearchResult = ({ result, onSelect, disabled }) => {
   return (
-    <Container onClick={onSelect}>
+    <Container onClick={onSelect} disabled={disabled}>
       <ImageContainer>
         <Image
           alt={result.name}
@@ -66,6 +80,7 @@ const SearchResult = ({ result, onSelect }) => {
         <Artist>{result.artist}</Artist>
         <Album>{result.name}</Album>
       </TextContainer>
+      {disabled && <i className="fas fa-check-circle" />}
     </Container>
   );
 };
