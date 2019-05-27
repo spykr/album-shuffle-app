@@ -19,6 +19,15 @@ const StyledAlbumDetail = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 32px;
+
+  /* Simulate padding at end of scroll */
+  > *:last-child:after {
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 32px;
+    width: 1px;
+  }
 `;
 
 const InfoContainer = styled.div`
