@@ -9,7 +9,7 @@ import AlbumDetail from "scenes/AlbumDetail";
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
 `;
 

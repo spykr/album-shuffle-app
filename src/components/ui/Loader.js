@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledLoader = styled.div`
+  color: white;
   display: inline-block;
   height: 48px;
   max-height: 100%;

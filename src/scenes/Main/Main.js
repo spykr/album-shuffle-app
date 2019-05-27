@@ -7,6 +7,7 @@ import { Button } from "components/ui";
 
 const ButtonContainer = styled.div`
   display: flex;
+  flex-shrink: 0;
 `;
 
 const StyledButton = styled(Button)`
@@ -15,7 +16,11 @@ const StyledButton = styled(Button)`
   padding: 24px 16px;
   width: 50%;
 
-  @media (min-width: 350px) {
+  @media (max-width: 330px) {
+    font-size: 13px;
+  }
+
+  @media (min-width: 360px) {
     font-size: 16px;
   }
 
@@ -26,12 +31,16 @@ const StyledButton = styled(Button)`
 
 const ScrollArea = styled.div`
   flex-grow: 1;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
   overflow-y: auto;
 `;
 
 const Main = withRouter(({ albums, setAlbums, onShuffle, history }) => {
-  const goToRandomAlbum = () =>
+  const goToRandomAlbum = () => {
+    if (albums.length === 0) return;
     history.push(`/album/${Math.floor(Math.random() * albums.length)}`);
+  };
 
   return (
     <>

@@ -10,6 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   margin: 0 auto;
   max-height: 270px;
+  -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   position: absolute;
   width: 100%;

@@ -5,6 +5,7 @@ import API from "services/api";
 import SearchResults from "./components/SearchResults";
 
 const StyledAlbumSearch = styled.div`
+  flex-shrink: 0;
   position: relative;
   z-index: 2;
 `;
@@ -17,6 +18,10 @@ const Input = styled.input`
   font-size: 20px;
   padding: 16px;
   width: 100%;
+
+  @media (max-width: 370px) {
+    font-size: 17px;
+  }
 
   &::placeholder {
     font-weight: 300;

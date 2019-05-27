@@ -13,11 +13,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body, #root {
-    font-family: Roboto, sans-serif;
+    font-family: Open Sans, sans-serif;
     height: 100%;
     min-width: 320px;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     width: 100%;
+  }
+
+  body {
+    position: fixed;
   }
 
   button {

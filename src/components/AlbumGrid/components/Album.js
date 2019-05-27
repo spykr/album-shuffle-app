@@ -60,17 +60,15 @@ const AlbumInfo = styled.div`
 const AlbumArtist = styled.span`
   ${truncate}
   font-size: 14px;
-  height: 1em;
-  line-height: 1;
+  line-height: 1.3;
 `;
 
 const AlbumTitle = styled.span`
   ${truncate}
   font-size: 16px;
   font-weight: 700;
-  height: 1em;
-  line-height: 1;
-  margin-top: 4px;
+  line-height: 1.3;
+  margin-top: 2px;
 `;
 
 const Album = ({ album, index }) => {

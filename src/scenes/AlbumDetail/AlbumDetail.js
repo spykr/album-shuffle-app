@@ -6,6 +6,13 @@ import API from "services/api";
 import { Button, Image } from "components/ui";
 import { truncate } from "styled-utils";
 
+const ScrollArea = styled.div`
+  flex-grow: 1;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
+
 const StyledAlbumDetail = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,24 +29,18 @@ const InfoContainer = styled.div`
   max-width: 800px;
   justify-content: center;
   width: 100%;
+
+  @media (min-width: 600px) {
+    margin-top: -42px;
+  }
 `;
 
 const ImageContainer = styled.div`
   border-radius: 2px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 1);
-  height: 130px;
+  max-width: 350px;
   position: relative;
-  width: 130px;
-
-  @media (min-width: 350px) {
-    height: 150px;
-    width: 150px;
-  }
-
-  @media (min-width: 500px) {
-    height: 200px;
-    width: 200px;
-  }
+  width: calc(100vw - (32px * 2) - (32px * 2) - (48px * 2));
 `;
 
 const TextContainer = styled.div`
@@ -97,8 +98,19 @@ const NavButton = styled.button`
   font-size: 30px;
   height: 32px;
   justify-content: center;
+  padding: 0;
   text-decoration: none;
   width: 32px;
+
+  @media (min-width: 600px) {
+    font-size: 42px;
+    height: 42px;
+    width: 42px;
+  }
+
+  .fa-chevron-left {
+    margin-left: auto;
+  }
 `;
 
 const ButtonHeader = styled.span`
@@ -169,90 +181,92 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
   };
 
   return (
-    <StyledAlbumDetail>
-      <NavContainer>
-        <NavButton as={Link} to="/">
-          <i className="fas fa-chevron-left" />
-        </NavButton>
-        <NavButton onClick={deleteAlbum}>
-          <i className="fas fa-trash" />
-        </NavButton>
-      </NavContainer>
-      <InfoContainer>
-        <ImageContainer>
-          <Image src={album.image[3]["#text"]} />
-        </ImageContainer>
-        <TextContainer>
-          <AlbumArtist>{album.artist}</AlbumArtist>
-          <AlbumTitle>{album.name}</AlbumTitle>
-        </TextContainer>
-      </InfoContainer>
-      <ButtonContainer>
-        <ButtonHeader>Listen on</ButtonHeader>
-        <Button
-          as="a"
-          href={`http://open.spotify.com/search/albums/${titleUrl}`}
-          target="_blank"
-          color="#1DB954"
-          backgroundColor="#083719"
-        >
-          <i className="fab fa-spotify" />
-          Spotify
-        </Button>
-        <Button
-          as="a"
-          href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
-          target="_blank"
-          color="#FF5722"
-          backgroundColor="#561400"
-        >
-          <i className="fab fa-google-play" />
-          Google Play
-        </Button>
-        {appleLink !== null ? (
+    <ScrollArea>
+      <StyledAlbumDetail>
+        <NavContainer>
+          <NavButton as={Link} to="/">
+            <i className="fas fa-chevron-left" />
+          </NavButton>
+          <NavButton onClick={deleteAlbum}>
+            <i className="fas fa-trash" />
+          </NavButton>
+        </NavContainer>
+        <InfoContainer>
+          <ImageContainer>
+            <Image src={album.image[3]["#text"]} />
+          </ImageContainer>
+          <TextContainer>
+            <AlbumArtist>{album.artist}</AlbumArtist>
+            <AlbumTitle>{album.name}</AlbumTitle>
+          </TextContainer>
+        </InfoContainer>
+        <ButtonContainer>
+          <ButtonHeader>Listen on</ButtonHeader>
           <Button
             as="a"
-            href={appleLink}
+            href={`http://open.spotify.com/search/albums/${titleUrl}`}
             target="_blank"
-            color="#FA57C1"
-            backgroundColor="#620240"
+            color="#1DB954"
+            backgroundColor="#083719"
           >
-            <i className="fab fa-apple" />
-            Apple Music
+            <i className="fab fa-spotify" />
+            Spotify
           </Button>
-        ) : (
           <Button
-            onClick={getAppleLink}
-            color="#FA57C1"
-            backgroundColor={
-              loadingAppleLink || appleError ? "#44012c" : "#620240"
-            }
-            disabled={loadingAppleLink}
+            as="a"
+            href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
+            target="_blank"
+            color="#FF5722"
+            backgroundColor="#561400"
           >
-            <i className="fab fa-apple" />
-            {(() => {
-              if (loadingAppleLink) {
-                return "Loading...";
-              } else if (appleError) {
-                return "Error, try again";
-              } else {
-                return "Apple Music";
-              }
-            })()}
+            <i className="fab fa-google-play" />
+            Google Play
           </Button>
-        )}
-        <Button
-          as="a"
-          href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
-          target="_blank"
-          color="#FF0000"
-          backgroundColor="#4C0000"
-        >
-          <i className="fab fa-youtube" />
-          YouTube
-        </Button>
-      </ButtonContainer>
-    </StyledAlbumDetail>
+          {appleLink !== null ? (
+            <Button
+              as="a"
+              href={appleLink}
+              target="_blank"
+              color="#FA57C1"
+              backgroundColor="#620240"
+            >
+              <i className="fab fa-apple" />
+              Apple Music
+            </Button>
+          ) : (
+            <Button
+              onClick={getAppleLink}
+              color="#FA57C1"
+              backgroundColor={
+                loadingAppleLink || appleError ? "#44012c" : "#620240"
+              }
+              disabled={loadingAppleLink}
+            >
+              <i className="fab fa-apple" />
+              {(() => {
+                if (loadingAppleLink) {
+                  return "Loading...";
+                } else if (appleError) {
+                  return "Error, try again";
+                } else {
+                  return "Apple Music";
+                }
+              })()}
+            </Button>
+          )}
+          <Button
+            as="a"
+            href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
+            target="_blank"
+            color="#FF0000"
+            backgroundColor="#4C0000"
+          >
+            <i className="fab fa-youtube" />
+            YouTube
+          </Button>
+        </ButtonContainer>
+      </StyledAlbumDetail>
+    </ScrollArea>
   );
 });
 

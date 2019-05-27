@@ -9,6 +9,7 @@ const Container = styled.button`
   border: 0;
   color: white;
   display: flex;
+  flex-shrink: 0;
   font-size: 14px;
   padding: 8px;
 
@@ -32,8 +33,8 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow: hidden;
   margin-left: 8px;
+  overflow: hidden;
   text-align: left;
 `;
 
