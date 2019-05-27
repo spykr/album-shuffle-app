@@ -7,10 +7,9 @@ import Main from "scenes/Main";
 import AlbumDetail from "scenes/AlbumDetail";
 
 const StyledApp = styled.div`
-  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
 `;
 

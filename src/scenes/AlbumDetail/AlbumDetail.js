@@ -11,16 +11,12 @@ const StyledAlbumDetail = styled.div`
   padding: 32px;
 `;
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-`;
-
 const InfoContainer = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: column;
   margin: 0 auto;
+  margin-top: -32px;
   max-width: 800px;
   justify-content: center;
   width: 100%;
@@ -29,19 +25,17 @@ const InfoContainer = styled.div`
 const StyledImage = styled(Image)`
   border-radius: 2px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 1);
-  height: 90px;
-  margin-right: 12px;
-  width: 90px;
+  height: 130px;
+  width: 130px;
 
   @media (min-width: 350px) {
-    height: 100px;
-    margin-right: 16px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
   }
 
   @media (min-width: 500px) {
-    height: 170px;
-    width: 170px;
+    height: 200px;
+    width: 200px;
   }
 `;
 
@@ -50,75 +44,83 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  overflow: hidden;
+  margin-top: 16px;
+  text-align: center;
+
+  @media (min-width: 500px) {
+    margin-top: 24px;
+  }
 `;
 
 const AlbumArtist = styled.span`
-  ${truncate}
-  font-size: 18px;
+  font-size: 16px;
 
   @media (min-width: 350px) {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   @media (min-width: 500px) {
-    font-size: 30px;
+    font-size: 24px;
   }
 `;
 
 const AlbumTitle = styled.span`
-  ${truncate}
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   margin-top: 4px;
 
   @media (min-width: 350px) {
-    font-size: 28px;
+    font-size: 24px;
     margin-top: 8px;
   }
 
   @media (min-width: 500px) {
-    font-size: 40px;
+    font-size: 32px;
   }
 `;
 
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  z-index: 2;
 `;
 
 const NavButton = styled.button`
+  align-items: center;
   background: none;
   border: 0;
   color: white;
-  font-size: 32px;
+  display: flex;
+  font-size: 30px;
+  height: 32px;
+  justify-content: center;
+  text-decoration: none;
+  width: 32px;
 `;
 
 const ButtonHeader = styled.span`
   ${truncate}
   color: white;
   font-size: 16px;
-  font-weight: 400;
-  margin-top: 24px;
+  font-weight: 300;
   text-align: center;
 
   @media (min-width: 500px) {
     font-size: 20px;
-    margin-top: 32px;
   }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 16px;
-  max-width: 350px;
+  margin: auto;
+  max-width: 300px;
+  padding-top: 16px;
   width: 100%;
 
   @media (min-width: 500px) {
-    margin-top: 24px;
     max-width: 400px;
+    padding-top: 24px;
   }
 
   & > *:not(:first-child) {
@@ -145,59 +147,57 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
     <StyledAlbumDetail>
       <NavContainer>
         <NavButton as={Link} to="/">
-          <i className="fas fa-arrow-alt-circle-left" />
+          <i className="fas fa-chevron-left" />
         </NavButton>
         <NavButton onClick={deleteAlbum}>
           <i className="fas fa-trash" />
         </NavButton>
       </NavContainer>
-      <PageContainer>
-        <InfoContainer>
-          <StyledImage src={album.image[3]["#text"]} />
-          <TextContainer>
-            <AlbumArtist>{album.artist}</AlbumArtist>
-            <AlbumTitle>{album.name}</AlbumTitle>
-          </TextContainer>
-        </InfoContainer>
-        <ButtonHeader>Listen on:</ButtonHeader>
-        <ButtonContainer>
-          <Button
-            as="a"
-            href={`http://open.spotify.com/search/albums/${titleUrl}`}
-            target="_blank"
-            color="#1DB954"
-            backgroundColor="#083719"
-          >
-            <i className="fab fa-spotify" />
-            Spotify
-          </Button>
-          <Button
-            as="a"
-            href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
-            target="_blank"
-            color="#FF5722"
-            backgroundColor="#561400"
-          >
-            <i className="fab fa-google-play" />
-            Google Play
-          </Button>
-          <Button color="#FA57C1" backgroundColor="#620240">
-            {/* TODO */}
-            <i className="fab fa-apple" />
-            Apple Music
-          </Button>
-          <Button
-            as="a"
-            href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
-            target="_blank"
-            color="#FF0000"
-            backgroundColor="#4C0000"
-          >
-            <i className="fab fa-youtube" />
-            YouTube
-          </Button>
-        </ButtonContainer>
-      </PageContainer>
+      <InfoContainer>
+        <StyledImage src={album.image[3]["#text"]} />
+        <TextContainer>
+          <AlbumArtist>{album.artist}</AlbumArtist>
+          <AlbumTitle>{album.name}</AlbumTitle>
+        </TextContainer>
+      </InfoContainer>
+      <ButtonContainer>
+        <ButtonHeader>Listen on</ButtonHeader>
+        <Button
+          as="a"
+          href={`http://open.spotify.com/search/albums/${titleUrl}`}
+          target="_blank"
+          color="#1DB954"
+          backgroundColor="#083719"
+        >
+          <i className="fab fa-spotify" />
+          Spotify
+        </Button>
+        <Button
+          as="a"
+          href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
+          target="_blank"
+          color="#FF5722"
+          backgroundColor="#561400"
+        >
+          <i className="fab fa-google-play" />
+          Google Play
+        </Button>
+        <Button color="#FA57C1" backgroundColor="#620240">
+          {/* TODO */}
+          <i className="fab fa-apple" />
+          Apple Music
+        </Button>
+        <Button
+          as="a"
+          href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
+          target="_blank"
+          color="#FF0000"
+          backgroundColor="#4C0000"
+        >
+          <i className="fab fa-youtube" />
+          YouTube
+        </Button>
+      </ButtonContainer>
     </StyledAlbumDetail>
   );
 });

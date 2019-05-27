@@ -11,13 +11,22 @@ const ButtonContainer = styled.div`
 
 const StyledButton = styled(Button)`
   border-radius: 0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 24px 16px;
   width: 50%;
+
+  @media (min-width: 350px) {
+    font-size: 16px;
+  }
 
   &:first-child {
     border-right: 1px solid black;
   }
+`;
+
+const ScrollArea = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
 `;
 
 const Main = withRouter(({ albums, setAlbums, onShuffle, history }) => {
@@ -37,7 +46,9 @@ const Main = withRouter(({ albums, setAlbums, onShuffle, history }) => {
           Shuffle Albums
         </StyledButton>
       </ButtonContainer>
-      <AlbumGrid albums={albums} />
+      <ScrollArea>
+        <AlbumGrid albums={albums} />
+      </ScrollArea>
     </>
   );
 });
