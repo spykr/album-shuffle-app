@@ -3,8 +3,14 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
+import * as Sentry from "@sentry/browser";
 import App from "scenes/App/App";
 import * as serviceWorker from "./serviceWorker";
+
+Sentry.init({
+  dsn: "https://66913652bf51407ca0e93f7df0adf6e0@sentry.io/1468813",
+  environment: "production",
+});
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/browser": "^5.3.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "p-min-delay": "^3.1.0",
