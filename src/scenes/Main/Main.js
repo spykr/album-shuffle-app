@@ -18,6 +18,7 @@ const StyledButton = styled(Button)`
 
   @media (max-width: 330px) {
     font-size: 13px;
+    padding: 16px;
   }
 
   @media (min-width: 360px) {

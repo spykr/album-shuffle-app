@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import debounce from "lodash/debounce";
 import styled from "styled-components";
 import API from "services/api";
@@ -53,18 +54,19 @@ const AlbumSearch = ({ onSelectResult }) => {
   const [searchResults, setSearchResults] = useState(null);
 
   const searchCall = useRef(
-    debounce(search => {
+    debounce((search, cancelToken) => {
       setLoading(true);
-      API.searchAlbums(search)
+      API.searchAlbums(search, cancelToken.token)
         .then(response => {
-          console.log(response);
+          console.log("Search response:", response);
           const albums = response.data.results.albummatches.album;
-          console.log(albums);
           setSearchResults(albums);
           setLoading(false);
         })
         .catch(error => {
-          console.error(error);
+          if (!axios.isCancel(error)) {
+            console.log("Error on search:", error);
+          }
           setLoading(false);
         });
     }, 400),
@@ -73,8 +75,14 @@ const AlbumSearch = ({ onSelectResult }) => {
   useEffect(() => {
     if (search.trim() === "") {
       setSearchResults(null);
+      setLoading(false);
     } else {
-      searchCall.current(search);
+      const cancelToken = axios.CancelToken.source();
+      searchCall.current(search, cancelToken);
+      // Cancel request on change
+      return () => {
+        cancelToken.cancel();
+      };
     }
   }, [search]);
 
@@ -88,7 +96,7 @@ const AlbumSearch = ({ onSelectResult }) => {
       />
       {search !== "" && (
         <InputClearButton onClick={() => setSearch("")}>
-          <i class="fas fa-times-circle" />
+          <i className="fas fa-times-circle" />
         </InputClearButton>
       )}
       {(loading || searchResults !== null) && (

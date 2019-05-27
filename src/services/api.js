@@ -11,12 +11,15 @@ const API_CONFIG = ({ ...params } = {}) =>
   });
 
 export default {
-  searchAlbums: search =>
+  searchAlbums: (search, cancelToken) =>
     API_CONFIG({
       album: search,
       limit: 10,
     }).get(
       "?method=album.search&api_key=6c85fd2ff909d79aa570b31ecc14fca3&format=json",
+      {
+        cancelToken,
+      },
     ),
   searchAppleMusic: search =>
     API_CONFIG().get(
