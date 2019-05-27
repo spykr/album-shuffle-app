@@ -10,6 +10,24 @@ const StyledAlbumSearch = styled.div`
   z-index: 2;
 `;
 
+const InputClearButton = styled.button`
+  align-items: center;
+  background: none;
+  border: 0;
+  color: white;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(32px + 16px);
+
+  i {
+    font-size: 16px;
+  }
+`;
+
 const Input = styled.input`
   background-color: black;
   border: 0;
@@ -17,6 +35,7 @@ const Input = styled.input`
   color: white;
   font-size: 20px;
   padding: 16px;
+  ${p => p.typing && `padding-right: calc(32px + 16px)`};
   width: 100%;
 
   @media (max-width: 370px) {
@@ -65,7 +84,13 @@ const AlbumSearch = ({ onSelectResult }) => {
         placeholder="Search for albums to add to your list..."
         onChange={e => setSearch(e.target.value)}
         value={search}
+        typing={search !== ""}
       />
+      {search !== "" && (
+        <InputClearButton onClick={() => setSearch("")}>
+          <i class="fas fa-times-circle" />
+        </InputClearButton>
+      )}
       {(loading || searchResults !== null) && (
         <SearchResults
           loading={loading}
