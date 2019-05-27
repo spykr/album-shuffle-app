@@ -18,4 +18,8 @@ export default {
     }).get(
       "?method=album.search&api_key=6c85fd2ff909d79aa570b31ecc14fca3&format=json",
     ),
+  searchAppleMusic: search =>
+    API_CONFIG().get(
+      `https://itunes.apple.com/search?media=music&entity=album&limit=1&term=${search}`,
+    ),
 };

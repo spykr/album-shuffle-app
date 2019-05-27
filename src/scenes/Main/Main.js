@@ -35,7 +35,7 @@ const Main = withRouter(({ albums, setAlbums, onShuffle, history }) => {
 
   return (
     <>
-      <AlbumSearch onSelectResult={album => setAlbums([...albums, album])} />
+      <AlbumSearch onSelectResult={album => setAlbums([album, ...albums])} />
       <ButtonContainer>
         <StyledButton onClick={goToRandomAlbum}>
           <i className="fas fa-play" />

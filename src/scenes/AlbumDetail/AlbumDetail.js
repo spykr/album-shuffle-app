@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
+import pMinDelay from "p-min-delay";
+import API from "services/api";
 import { Button, Image } from "components/ui";
 import { truncate } from "styled-utils";
 
@@ -22,10 +24,11 @@ const InfoContainer = styled.div`
   width: 100%;
 `;
 
-const StyledImage = styled(Image)`
+const ImageContainer = styled.div`
   border-radius: 2px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 1);
   height: 130px;
+  position: relative;
   width: 130px;
 
   @media (min-width: 350px) {
@@ -143,6 +146,28 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
     history.push("/");
   };
 
+  const [appleLink, setAppleLink] = useState(null);
+  const [appleError, setAppleError] = useState(false);
+  const [loadingAppleLink, setLoadingAppleLink] = useState(false);
+  const getAppleLink = () => {
+    setLoadingAppleLink(true);
+    setAppleError(false);
+    pMinDelay(API.searchAppleMusic(titleUrlPlus), 500)
+      .then(response => {
+        setLoadingAppleLink(false);
+        const album = response?.data?.results?.[0];
+        if (album) {
+          setAppleLink(album.collectionViewUrl);
+        } else {
+          setAppleError(true);
+        }
+      })
+      .catch(error => {
+        setLoadingAppleLink(false);
+        setAppleError(true);
+      });
+  };
+
   return (
     <StyledAlbumDetail>
       <NavContainer>
@@ -154,7 +179,9 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
         </NavButton>
       </NavContainer>
       <InfoContainer>
-        <StyledImage src={album.image[3]["#text"]} />
+        <ImageContainer>
+          <Image src={album.image[3]["#text"]} />
+        </ImageContainer>
         <TextContainer>
           <AlbumArtist>{album.artist}</AlbumArtist>
           <AlbumTitle>{album.name}</AlbumTitle>
@@ -182,11 +209,38 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
           <i className="fab fa-google-play" />
           Google Play
         </Button>
-        <Button color="#FA57C1" backgroundColor="#620240">
-          {/* TODO */}
-          <i className="fab fa-apple" />
-          Apple Music
-        </Button>
+        {appleLink !== null ? (
+          <Button
+            as="a"
+            href={appleLink}
+            target="_blank"
+            color="#FA57C1"
+            backgroundColor="#620240"
+          >
+            <i className="fab fa-apple" />
+            Apple Music
+          </Button>
+        ) : (
+          <Button
+            onClick={getAppleLink}
+            color="#FA57C1"
+            backgroundColor={
+              loadingAppleLink || appleError ? "#44012c" : "#620240"
+            }
+            disabled={loadingAppleLink}
+          >
+            <i className="fab fa-apple" />
+            {(() => {
+              if (loadingAppleLink) {
+                return "Loading...";
+              } else if (appleError) {
+                return "Error, try again";
+              } else {
+                return "Apple Music";
+              }
+            })()}
+          </Button>
+        )}
         <Button
           as="a"
           href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
