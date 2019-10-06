@@ -7,7 +7,7 @@ import pMinDelay from "p-min-delay";
 
 import { AlbumsContext } from "../_app";
 import API from "@/services/api";
-import { Button, Image } from "@/components/ui";
+import { Button, Image, Loader } from "@/components/ui";
 import { truncate } from "@/utils/styled";
 
 const StyledAlbumDetail = styled.div`
@@ -162,7 +162,13 @@ const AlbumDetail = () => {
   const router = useRouter();
   const { index } = router.query;
 
-  const { albums, deleteAlbum, shuffleAlbums } = useContext(AlbumsContext);
+  const { albums, loadedAlbums, deleteAlbum, shuffleAlbums } = useContext(
+    AlbumsContext,
+  );
+  if (!loadedAlbums) {
+    return <Loader backgroundColor="transparent" />;
+  }
+
   const album = albums[index];
   if (!album) {
     return <Error statusCode={404} />;

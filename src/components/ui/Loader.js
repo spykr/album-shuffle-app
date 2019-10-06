@@ -13,7 +13,7 @@ const animation = keyframes`
 
 const Wrapper = styled.div`
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: ${p => p.backgroundColor || "rgba(0, 0, 0, 0.75)"};
   box-sizing: border-box;
   display: flex;
   height: 100%;
@@ -46,9 +46,9 @@ const StyledLoader = styled.div`
   }
 `;
 
-const Loader = ({ borderWidth = 5 }) => {
+const Loader = ({ backgroundColor, borderWidth = 5 }) => {
   return (
-    <Wrapper>
+    <Wrapper backgroundColor={backgroundColor}>
       <StyledLoader borderWidth={borderWidth} />
     </Wrapper>
   );

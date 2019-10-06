@@ -60,7 +60,13 @@ const MyComponent = ({ children }) => {
 
   return (
     <AlbumsContext.Provider
-      value={{ albums, addAlbum, deleteAlbum, shuffleAlbums }}
+      value={{
+        albums,
+        loadedAlbums: loadedAlbums.current,
+        addAlbum,
+        deleteAlbum,
+        shuffleAlbums,
+      }}
     >
       {children}
     </AlbumsContext.Provider>
