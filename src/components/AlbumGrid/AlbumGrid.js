@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import Album from "./components/Album";
 
 const StyledAlbumGrid = styled.div`

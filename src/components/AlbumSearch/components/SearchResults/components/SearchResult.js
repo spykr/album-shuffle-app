@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Image } from "components/ui";
-import { truncate } from "styled-utils";
+
+import { Image } from "@/components/ui";
+import { truncate } from "@/utils/styled";
 
 const Container = styled.button`
   align-items: center;
   background-color: transparent;
   border: 0;
   color: white;
+  cursor: pointer;
   display: flex;
   flex-shrink: 0;
   font-size: 14px;
@@ -18,11 +20,10 @@ const Container = styled.button`
     padding: 12px;
   }
 
-  ${p =>
-    p.disabled &&
-    `
+  &:disabled {
+    cursor: not-allowed;
     opacity: 0.5;
-  `}
+  }
 
   i {
     font-size: 24px;

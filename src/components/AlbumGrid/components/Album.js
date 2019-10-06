@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Image } from "components/ui";
-import { truncate } from "styled-utils";
+import Link from "next/link";
 
-const StyledAlbum = styled(Link)`
+import { truncate } from "@/utils/styled";
+import { Image } from "@/components/ui";
+
+const StyledAlbum = styled.a`
   border: 0;
   cursor: pointer;
   line-height: 0;
@@ -21,7 +22,8 @@ const StyledAlbum = styled(Link)`
     padding-bottom: 100%;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     box-shadow: 0 0 20px rgba(0, 0, 0, 1);
     transform: scale(1.015);
     z-index: 1;
@@ -52,7 +54,8 @@ const AlbumInfo = styled.div`
   transition: opacity 0.2s;
   width: 100%;
 
-  ${StyledAlbum}:hover & {
+  ${StyledAlbum}:hover &,
+  ${StyledAlbum}:focus & {
     opacity: 1;
   }
 `;
@@ -73,13 +76,15 @@ const AlbumTitle = styled.span`
 
 const Album = ({ album, index }) => {
   return (
-    <StyledAlbum to={`/album/${index}`}>
-      <AlbumImage alt={album.name} src={album.image[3]["#text"]} />
-      <AlbumInfo>
-        <AlbumArtist>{album.artist}</AlbumArtist>
-        <AlbumTitle>{album.name}</AlbumTitle>
-      </AlbumInfo>
-    </StyledAlbum>
+    <Link href="/album/[index]" as={`/album/${index}`} passHref>
+      <StyledAlbum>
+        <AlbumImage alt={album.name} src={album.image[3]["#text"]} />
+        <AlbumInfo>
+          <AlbumArtist>{album.artist}</AlbumArtist>
+          <AlbumTitle>{album.name}</AlbumTitle>
+        </AlbumInfo>
+      </StyledAlbum>
+    </Link>
   );
 };
 

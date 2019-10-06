@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Error from "next/error";
 import styled from "styled-components";
-import { withRouter, Link } from "react-router-dom";
 import pMinDelay from "p-min-delay";
-import API from "services/api";
-import { Button, Image } from "components/ui";
-import { truncate } from "styled-utils";
 
-const ScrollArea = styled.div`
-  flex-grow: 1;
-  -webkit-overflow-scrolling: touch;
-  overflow-x: hidden;
-  overflow-y: auto;
-`;
+import { AlbumsContext } from "../_app";
+import API from "@/services/api";
+import { Button, Image } from "@/components/ui";
+import { truncate } from "@/utils/styled";
 
 const StyledAlbumDetail = styled.div`
   box-sizing: border-box;
@@ -46,8 +43,11 @@ const InfoContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
+  border: 2px solid white;
   border-radius: 2px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+  height: calc(100vw - (32px * 2) - (32px * 2) - (48px * 2));
+  max-height: 350px;
   max-width: 350px;
   position: relative;
   width: calc(100vw - (32px * 2) - (32px * 2) - (48px * 2));
@@ -104,6 +104,7 @@ const NavButton = styled.button`
   background: none;
   border: 0;
   color: white;
+  cursor: pointer;
   display: flex;
   font-size: 30px;
   height: 32px;
@@ -157,15 +158,23 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
+const AlbumDetail = () => {
+  const router = useRouter();
+  const { index } = router.query;
+
+  const { albums, deleteAlbum, shuffleAlbums } = useContext(AlbumsContext);
   const album = albums[index];
+  if (!album) {
+    return <Error statusCode={404} />;
+  }
+
   const title = `${album.artist} ${album.name}`;
   const titleUrl = encodeURIComponent(title);
   const titleUrlPlus = titleUrl.replace(/%20/g, "+");
 
-  const deleteAlbum = () => {
-    onDelete(album);
-    history.push("/");
+  const onDelete = () => {
+    deleteAlbum(album);
+    router.push("/");
   };
 
   const [appleLink, setAppleLink] = useState(null);
@@ -191,93 +200,93 @@ const AlbumDetail = withRouter(({ albums, index, onDelete, history }) => {
   };
 
   return (
-    <ScrollArea>
-      <StyledAlbumDetail>
-        <NavContainer>
-          <NavButton as={Link} to="/">
+    <StyledAlbumDetail>
+      <NavContainer>
+        <Link href="/" passHref>
+          <NavButton as={"a"}>
             <i className="fas fa-chevron-left" />
           </NavButton>
-          <NavButton onClick={deleteAlbum}>
-            <i className="fas fa-trash" />
-          </NavButton>
-        </NavContainer>
-        <InfoContainer>
-          <ImageContainer>
-            <Image src={album.image[3]["#text"]} />
-          </ImageContainer>
-          <TextContainer>
-            <AlbumArtist>{album.artist}</AlbumArtist>
-            <AlbumTitle>{album.name}</AlbumTitle>
-          </TextContainer>
-        </InfoContainer>
-        <ButtonContainer>
-          <ButtonHeader>Listen on</ButtonHeader>
+        </Link>
+        <NavButton onClick={onDelete}>
+          <i className="fas fa-trash" />
+        </NavButton>
+      </NavContainer>
+      <InfoContainer>
+        <ImageContainer>
+          <Image src={album.image[3]["#text"]} />
+        </ImageContainer>
+        <TextContainer>
+          <AlbumArtist>{album.artist}</AlbumArtist>
+          <AlbumTitle>{album.name}</AlbumTitle>
+        </TextContainer>
+      </InfoContainer>
+      <ButtonContainer>
+        <ButtonHeader>Listen on</ButtonHeader>
+        <Button
+          as="a"
+          href={`https://open.spotify.com/search/albums/${titleUrl}`}
+          target="_blank"
+          color="#1DB954"
+          backgroundColor="#083719"
+        >
+          <i className="fab fa-spotify" />
+          Spotify
+        </Button>
+        <Button
+          as="a"
+          href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
+          target="_blank"
+          color="#FF5722"
+          backgroundColor="#561400"
+        >
+          <i className="fab fa-google-play" />
+          Google Play
+        </Button>
+        {appleLink !== null ? (
           <Button
             as="a"
-            href={`https://open.spotify.com/search/albums/${titleUrl}`}
+            href={appleLink}
             target="_blank"
-            color="#1DB954"
-            backgroundColor="#083719"
+            color="#FA57C1"
+            backgroundColor="#620240"
           >
-            <i className="fab fa-spotify" />
-            Spotify
+            <i className="fab fa-apple" />
+            Apple Music
           </Button>
+        ) : (
           <Button
-            as="a"
-            href={`https://play.google.com/store/search?q=${titleUrlPlus}&c=music`}
-            target="_blank"
-            color="#FF5722"
-            backgroundColor="#561400"
+            onClick={getAppleLink}
+            color="#FA57C1"
+            backgroundColor={
+              loadingAppleLink || appleError ? "#44012c" : "#620240"
+            }
+            disabled={loadingAppleLink}
           >
-            <i className="fab fa-google-play" />
-            Google Play
-          </Button>
-          {appleLink !== null ? (
-            <Button
-              as="a"
-              href={appleLink}
-              target="_blank"
-              color="#FA57C1"
-              backgroundColor="#620240"
-            >
-              <i className="fab fa-apple" />
-              Apple Music
-            </Button>
-          ) : (
-            <Button
-              onClick={getAppleLink}
-              color="#FA57C1"
-              backgroundColor={
-                loadingAppleLink || appleError ? "#44012c" : "#620240"
+            <i className="fab fa-apple" />
+            {(() => {
+              if (loadingAppleLink) {
+                return "Loading...";
+              } else if (appleError) {
+                return "Error, try again";
+              } else {
+                return "Apple Music";
               }
-              disabled={loadingAppleLink}
-            >
-              <i className="fab fa-apple" />
-              {(() => {
-                if (loadingAppleLink) {
-                  return "Loading...";
-                } else if (appleError) {
-                  return "Error, try again";
-                } else {
-                  return "Apple Music";
-                }
-              })()}
-            </Button>
-          )}
-          <Button
-            as="a"
-            href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
-            target="_blank"
-            color="#FF0000"
-            backgroundColor="#4C0000"
-          >
-            <i className="fab fa-youtube" />
-            YouTube
+            })()}
           </Button>
-        </ButtonContainer>
-      </StyledAlbumDetail>
-    </ScrollArea>
+        )}
+        <Button
+          as="a"
+          href={`https://www.youtube.com/results?search_query=${titleUrlPlus}`}
+          target="_blank"
+          color="#FF0000"
+          backgroundColor="#4C0000"
+        >
+          <i className="fab fa-youtube" />
+          YouTube
+        </Button>
+      </ButtonContainer>
+    </StyledAlbumDetail>
   );
-});
+};
 
 export default AlbumDetail;

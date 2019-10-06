@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import styled from "styled-components";
-import API from "services/api";
+
+import API from "@/services/api";
 import SearchResults from "./components/SearchResults";
 
 const StyledAlbumSearch = styled.div`
@@ -58,7 +59,6 @@ const AlbumSearch = ({ albums, onSelectResult }) => {
       setLoading(true);
       API.searchAlbums(search, cancelToken.token)
         .then(response => {
-          console.log("Search response:", response);
           const albums = response.data.results.albummatches.album;
           setSearchResults(albums);
           setLoading(false);

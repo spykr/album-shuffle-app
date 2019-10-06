@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import findIndex from "lodash/findIndex";
+
 import SearchResult from "./components/SearchResult";
-import { Loader } from "components/ui";
+import { Loader } from "@/components/ui";
 
 const Container = styled.div`
   background-color: black;
@@ -21,7 +22,7 @@ const Container = styled.div`
   }
 
   ${p =>
-    p.loading &&
+    p.loadingResults &&
     !p.noResults &&
     css`
       min-height: 160px;
@@ -39,7 +40,7 @@ const NoResultsText = styled.p`
 const SearchResults = ({ albums, loading, results, onSelectResult }) => {
   const noResults = results && results.length === 0;
   return (
-    <Container loading={loading} noResults={noResults}>
+    <Container loadingResults={loading} noResults={noResults}>
       {noResults && <NoResultsText>No albums found</NoResultsText>}
       {results &&
         results.map(result => (
