@@ -1,0 +1,5 @@
+albumShuffleApp:
+  component: serverless-next.js
+  inputs:
+    bucketName: album-shuffle-app
+    domain: ["albumshuffle", "darcyglennen.com"]
