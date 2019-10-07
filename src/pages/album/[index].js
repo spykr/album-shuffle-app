@@ -158,10 +158,8 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const AlbumDetail = () => {
+const AlbumDetail = ({ index }) => {
   const router = useRouter();
-  const { index } = router.query;
-
   const { albums, loadedAlbums, deleteAlbum, shuffleAlbums } = useContext(
     AlbumsContext,
   );
@@ -293,6 +291,10 @@ const AlbumDetail = () => {
       </ButtonContainer>
     </StyledAlbumDetail>
   );
+};
+
+AlbumDetail.getInitialProps = async ({ query }) => {
+  return { index: query.index };
 };
 
 export default AlbumDetail;
