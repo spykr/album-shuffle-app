@@ -54,8 +54,8 @@ const AlbumInfo = styled.div`
   transition: opacity 0.2s;
   width: 100%;
 
-  ${StyledAlbum}:hover &,
-  ${StyledAlbum}:focus & {
+  ${/* sc-sel */ StyledAlbum}:hover &,
+  ${/* sc-sel */ StyledAlbum}:focus & {
     opacity: 1;
   }
 `;

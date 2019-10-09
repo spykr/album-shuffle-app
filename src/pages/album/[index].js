@@ -160,9 +160,7 @@ const ButtonContainer = styled.div`
 
 const AlbumDetail = ({ index }) => {
   const router = useRouter();
-  const { albums, loadedAlbums, deleteAlbum, shuffleAlbums } = useContext(
-    AlbumsContext,
-  );
+  const { albums, loadedAlbums, deleteAlbum } = useContext(AlbumsContext);
   if (!loadedAlbums) {
     return <Loader backgroundColor="transparent" />;
   }
@@ -197,7 +195,7 @@ const AlbumDetail = ({ index }) => {
           setAppleError(true);
         }
       })
-      .catch(error => {
+      .catch(() => {
         setLoadingAppleLink(false);
         setAppleError(true);
       });

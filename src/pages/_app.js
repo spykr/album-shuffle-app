@@ -1,4 +1,4 @@
-import App, { Container } from "next/app";
+import App from "next/app";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import shuffle from "lodash/shuffle";
