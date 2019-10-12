@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
 
+import Styled from "./Image.styles";
 import { Loader } from "@/components/ui";
 
 const LOADER_DELAY_MS = 200;
-
-const StyledImage = styled.img`
-  height: 100%;
-  width: 100%;
-
-  ${p =>
-    (p.loadingImage || p.failedLoading) &&
-    css`
-      opacity: 0;
-    `}
-`;
 
 const Image = ({ className, alt, src, loaderProps = {} }) => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +21,7 @@ const Image = ({ className, alt, src, loaderProps = {} }) => {
   return (
     <>
       {loading && showLoader && <Loader {...loaderProps} />}
-      <StyledImage
+      <Styled.Image
         className={className}
         failedLoading={failed}
         loadingImage={loading}

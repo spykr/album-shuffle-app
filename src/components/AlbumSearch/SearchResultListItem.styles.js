@@ -1,10 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 
-import { Image } from "@/components/ui";
 import { truncate } from "@/utils/styled";
 
-const Container = styled.button`
+const SearchResultListItem = styled.button`
   align-items: center;
   background-color: transparent;
   border: 0;
@@ -67,23 +65,10 @@ const Album = styled.span`
   width: 100%;
 `;
 
-const SearchResult = ({ result, onSelect, disabled }) => {
-  return (
-    <Container onClick={onSelect} disabled={disabled}>
-      <ImageContainer>
-        <Image
-          alt={result.name}
-          src={result.image[0]["#text"]}
-          loaderProps={{ borderWidth: 2 }}
-        />
-      </ImageContainer>
-      <TextContainer>
-        <Artist>{result.artist}</Artist>
-        <Album>{result.name}</Album>
-      </TextContainer>
-      {disabled && <i className="fas fa-check-circle" />}
-    </Container>
-  );
+export default {
+  SearchResultListItem,
+  ImageContainer,
+  TextContainer,
+  Artist,
+  Album,
 };
-
-export default SearchResult;

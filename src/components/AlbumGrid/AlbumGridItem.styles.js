@@ -1,11 +1,9 @@
-import React from "react";
 import styled from "styled-components";
-import Link from "next/link";
 
 import { truncate } from "@/utils/styled";
 import { Image } from "@/components/ui";
 
-const StyledAlbum = styled.a`
+const Album = styled.a`
   border: 0;
   cursor: pointer;
   line-height: 0;
@@ -54,8 +52,8 @@ const AlbumInfo = styled.div`
   transition: opacity 0.2s;
   width: 100%;
 
-  ${/* sc-sel */ StyledAlbum}:hover &,
-  ${/* sc-sel */ StyledAlbum}:focus & {
+  ${/* sc-sel */ Album}:hover &,
+  ${/* sc-sel */ Album}:focus & {
     opacity: 1;
   }
 `;
@@ -74,18 +72,10 @@ const AlbumTitle = styled.span`
   margin-top: 2px;
 `;
 
-const Album = ({ album, index }) => {
-  return (
-    <Link href="/album/[index]" as={`/album/${index}`} passHref>
-      <StyledAlbum>
-        <AlbumImage alt={album.name} src={album.image[3]["#text"]} />
-        <AlbumInfo>
-          <AlbumArtist>{album.artist}</AlbumArtist>
-          <AlbumTitle>{album.name}</AlbumTitle>
-        </AlbumInfo>
-      </StyledAlbum>
-    </Link>
-  );
+export default {
+  Album,
+  AlbumImage,
+  AlbumInfo,
+  AlbumArtist,
+  AlbumTitle,
 };
-
-export default Album;
