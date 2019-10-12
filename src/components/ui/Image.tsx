@@ -5,7 +5,14 @@ import { Loader } from "@/components/ui";
 
 const LOADER_DELAY_MS = 200;
 
-const Image = ({ className, alt, src, loaderProps = {} }) => {
+type Props = {
+  className?: string;
+  alt: string;
+  src: string;
+  loaderProps?: object;
+};
+
+const Image = ({ className = "", alt, src, loaderProps = {} }: Props) => {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
 

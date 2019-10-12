@@ -23,10 +23,10 @@ const InfoContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin: 0 auto;
   margin-top: -32px;
   max-width: 800px;
-  justify-content: center;
   width: 100%;
 
   @media (min-width: 600px) {

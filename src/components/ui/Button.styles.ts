@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+const Button = styled.button<{
+  backgroundColor?: string;
+  color?: string;
+}>`
   align-items: center;
   background-color: ${p => p.backgroundColor || "#222"};
   border: 0;
@@ -13,8 +16,8 @@ const Button = styled.button`
   font-weight: 400;
   justify-content: center;
   line-height: 1;
-  padding: 20px 24px;
   min-width: 100px;
+  padding: 20px 24px;
   text-decoration: none;
 
   @media (min-width: 500px) {

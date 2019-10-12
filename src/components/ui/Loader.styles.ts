@@ -10,7 +10,9 @@ const animation = keyframes`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.div<{
+  backgroundColor: string;
+}>`
   align-items: center;
   background-color: ${p => p.backgroundColor || "rgba(0, 0, 0, 0.75)"};
   box-sizing: border-box;
@@ -24,7 +26,9 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Loader = styled.div`
+const Loader = styled.div<{
+  borderWidth: number;
+}>`
   color: white;
   display: inline-block;
   height: 48px;

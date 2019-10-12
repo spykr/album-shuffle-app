@@ -4,9 +4,22 @@ import findIndex from "lodash/findIndex";
 import Styled from "./SearchResultList.styles";
 import SearchResultListItem from "./SearchResultListItem";
 import { Loader } from "@/components/ui";
+import { Album } from "@/utils/typings";
 
-const SearchResultList = ({ albums, loading, results, onSelectResult }) => {
-  const noResults = results && results.length === 0;
+type Props = {
+  albums: Album[];
+  loading: boolean;
+  results: Album[] | null;
+  onSelectResult(album: Album): void;
+};
+
+const SearchResultList = ({
+  albums,
+  loading,
+  results,
+  onSelectResult,
+}: Props) => {
+  const noResults = results !== null && results.length === 0;
   return (
     <Styled.SearchResultList loadingResults={loading} noResults={noResults}>
       {noResults && (

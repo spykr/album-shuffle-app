@@ -7,14 +7,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint:js": "eslint './src/**/*.js'",
-    "lint:css": "stylelint './src/**/*.js'"
+    "lint": "eslint './src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@sentry/browser": "^5.6.3",
+    "@sentry/browser": "^5.7.0",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
-    "next": "^9.0.8",
+    "next": "^9.1.1",
     "p-min-delay": "^3.1.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -22,20 +21,19 @@
     "styled-normalize": "^8.0.6"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-    "babel-eslint": "^10.0.3",
+    "@types/lodash": "^4.14.144",
+    "@types/node": "^12.7.12",
+    "@types/react": "^16.9.5",
+    "@types/styled-components": "^4.1.19",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
-    "eslint-loader": "^3.0.2",
+    "eslint-plugin-better-styled-components": "^1.1.2",
     "eslint-plugin-react": "^7.16.0",
     "prettier": "^1.18.2",
-    "serverless-next.js": "^1.3.0",
-    "stylelint": "^11.0.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-custom-processor-loader": "^0.6.0",
-    "stylelint-processor-styled-components": "^1.8.0"
+    "serverless-next.js": "^1.4.0",
+    "typescript": "^3.6.4"
   }
 }

@@ -24,7 +24,9 @@ const InputClearButton = styled.button`
   }
 `;
 
-const Input = styled.input`
+const Input = styled.input<{
+  typing: boolean;
+}>`
   background-color: black;
   border: 0;
   box-sizing: border-box;

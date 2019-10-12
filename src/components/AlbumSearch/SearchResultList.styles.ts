@@ -1,13 +1,16 @@
 import styled, { css } from "styled-components";
 
-const SearchResultList = styled.div`
+const SearchResultList = styled.div<{
+  loadingResults: boolean;
+  noResults: boolean;
+}>`
+  -webkit-overflow-scrolling: touch;
   background-color: black;
   box-shadow: 0 0 20px rgba(0, 0, 0, 1);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-height: 270px;
-  -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   position: absolute;
   width: 100%;

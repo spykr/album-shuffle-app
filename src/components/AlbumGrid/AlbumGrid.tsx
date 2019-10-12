@@ -1,10 +1,16 @@
 import React from "react";
 
 import Styled from "./AlbumGrid.styles";
-import Album from "./AlbumGridItem";
+import AlbumGridItem from "./AlbumGridItem";
 import { Loader } from "@/components/ui";
+import { Album } from "@/utils/typings";
 
-const AlbumGrid = ({ albums, loading }) => {
+type Props = {
+  albums: Album[];
+  loading: boolean;
+};
+
+const AlbumGrid = ({ albums, loading }: Props) => {
   return (
     <Styled.AlbumGrid>
       {loading ? (
@@ -17,7 +23,7 @@ const AlbumGrid = ({ albums, loading }) => {
         </Styled.EmptyListText>
       ) : (
         albums.map((album, i) => (
-          <Album key={album.url} album={album} index={i} />
+          <AlbumGridItem key={album.url} album={album} index={i} />
         ))
       )}
     </Styled.AlbumGrid>

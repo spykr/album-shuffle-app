@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 
-const Image = styled.img`
+const Image = styled.img<{
+  loadingImage: boolean;
+  failedLoading: boolean;
+}>`
   height: 100%;
   width: 100%;
 

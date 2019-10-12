@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { CancelTokenSource } from "axios";
 
 const API_CONFIG = () =>
   axios.create({
@@ -6,7 +6,7 @@ const API_CONFIG = () =>
   });
 
 export default {
-  searchAlbums: (search, cancelToken) =>
+  searchAlbums: (search: string, cancelToken: CancelTokenSource["token"]) =>
     API_CONFIG().get(
       "?method=album.search&api_key=6c85fd2ff909d79aa570b31ecc14fca3&format=json",
       {
@@ -17,7 +17,7 @@ export default {
         },
       },
     ),
-  searchAppleMusic: search =>
+  searchAppleMusic: (search: string) =>
     API_CONFIG().get(
       `https://itunes.apple.com/search?media=music&entity=album&limit=1&term=${search}`,
     ),

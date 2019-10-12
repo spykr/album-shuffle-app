@@ -1,15 +1,20 @@
 import React, { useContext, useState } from "react";
+import { NextPageContext } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Error from "next/error";
 import pMinDelay from "p-min-delay";
 
 import Styled from "./AlbumDetail.styles";
-import { AlbumsContext } from "@/pages/_app";
 import API from "@/services/api";
 import { Button, Image, Loader } from "@/components/ui";
+import AlbumsContext from "@/utils/context";
 
-const AlbumDetail = ({ index }) => {
+type Props = {
+  index: number;
+};
+
+const AlbumDetail = ({ index }: Props) => {
   const router = useRouter();
   const { albums, loadingAlbums, deleteAlbum } = useContext(AlbumsContext);
   if (loadingAlbums) {
@@ -30,7 +35,7 @@ const AlbumDetail = ({ index }) => {
     router.push("/");
   };
 
-  const [appleLink, setAppleLink] = useState(null);
+  const [appleLink, setAppleLink] = useState(undefined);
   const [appleError, setAppleError] = useState(false);
   const [loadingAppleLink, setLoadingAppleLink] = useState(false);
   const getAppleLink = () => {
@@ -39,7 +44,11 @@ const AlbumDetail = ({ index }) => {
     pMinDelay(API.searchAppleMusic(titleUrlPlus), 500)
       .then(response => {
         setLoadingAppleLink(false);
-        const album = response?.data?.results?.[0];
+        const album =
+          response &&
+          response.data &&
+          response.data.results &&
+          response.data.results[0];
         if (album) {
           setAppleLink(album.collectionViewUrl);
         } else {
@@ -66,7 +75,7 @@ const AlbumDetail = ({ index }) => {
       </Styled.NavContainer>
       <Styled.InfoContainer>
         <Styled.ImageContainer>
-          <Image src={album.image[3]["#text"]} />
+          <Image alt={album.name} src={album.image[3]["#text"]} />
         </Styled.ImageContainer>
         <Styled.TextContainer>
           <Styled.AlbumArtist>{album.artist}</Styled.AlbumArtist>
@@ -142,7 +151,7 @@ const AlbumDetail = ({ index }) => {
   );
 };
 
-AlbumDetail.getInitialProps = async ({ query }) => {
+AlbumDetail.getInitialProps = async ({ query }: NextPageContext) => {
   return { index: query.index };
 };
 

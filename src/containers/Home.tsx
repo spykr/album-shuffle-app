@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { useRouter } from "next/router";
 
 import Styled from "./Home.styles";
-import { AlbumsContext } from "@/pages/_app";
 import AlbumSearch from "@/components/AlbumSearch";
 import AlbumGrid from "@/components/AlbumGrid";
+import AlbumsContext from "@/utils/context";
 
 const Home = () => {
   const router = useRouter();

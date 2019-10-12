@@ -1,18 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import axios, { CancelTokenSource } from "axios";
 import debounce from "lodash/debounce";
 
 import Styled from "./AlbumSearch.styles";
 import API from "@/services/api";
 import SearchResultList from "./SearchResultList";
+import { Album } from "@/utils/typings";
 
-const AlbumSearch = ({ albums, onSelectResult }) => {
+type Props = {
+  albums: Album[];
+  onSelectResult(album: Album): void;
+};
+
+const AlbumSearch = ({ albums, onSelectResult }: Props) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState(null);
 
   const searchCall = useRef(
-    debounce((search, cancelToken) => {
+    debounce((search: string, cancelToken: CancelTokenSource) => {
       setLoading(true);
       API.searchAlbums(search, cancelToken.token)
         .then(response => {
@@ -61,7 +67,7 @@ const AlbumSearch = ({ albums, onSelectResult }) => {
           albums={albums}
           loading={loading}
           results={searchResults}
-          onSelectResult={album => {
+          onSelectResult={(album: Album) => {
             setSearch("");
             onSelectResult(album);
           }}

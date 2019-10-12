@@ -1,11 +1,13 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
   },
   "env": {
     "browser": true,
@@ -13,13 +15,24 @@
     "es6": true,
     "commonjs": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": ["better-styled-components"],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier",
-    "prettier/react"
+    "prettier/react",
+    "prettier/@typescript-eslint"
   ],
   "rules": {
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "better-styled-components/sort-declarations-alphabetically": "error"
   }
 }

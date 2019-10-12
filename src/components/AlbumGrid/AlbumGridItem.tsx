@@ -2,8 +2,14 @@ import React from "react";
 import Link from "next/link";
 
 import Styled from "./AlbumGridItem.styles";
+import { Album } from "@/utils/typings";
 
-const Album = ({ album, index }) => {
+type Props = {
+  album: Album;
+  index: number;
+};
+
+const AlbumGridItem = ({ album, index }: Props) => {
   return (
     <Link href="/album/[index]" as={`/album/${index}`} passHref>
       <Styled.Album>
@@ -17,4 +23,4 @@ const Album = ({ album, index }) => {
   );
 };
 
-export default Album;
+export default AlbumGridItem;

@@ -5,7 +5,8 @@ import shuffle from "lodash/shuffle";
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
 
-export const AlbumsContext = React.createContext([]);
+import AlbumsContext from "@/utils/context";
+import { Album } from "@/utils/typings";
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -34,13 +35,17 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const MyComponent = ({ children }) => {
-  const [albums, setAlbums] = useState([]);
+interface Props {
+  children: React.ReactNode;
+}
+
+const MyComponent = ({ children }: Props) => {
+  const [albums, setAlbums] = useState<Album[]>([]);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
-  const addAlbum = album => {
+  const addAlbum = (album: Album) => {
     setAlbums([album, ...albums]);
   };
-  const deleteAlbum = album => {
+  const deleteAlbum = (album: Album) => {
     setAlbums(albums.filter(a => a.url !== album.url));
   };
   const shuffleAlbums = () => {
@@ -49,7 +54,7 @@ const MyComponent = ({ children }) => {
 
   useEffect(() => {
     if (loadingAlbums) {
-      const savedAlbums = JSON.parse(localStorage.getItem("albums"));
+      const savedAlbums = JSON.parse(localStorage.getItem("albums") || "");
       if (savedAlbums) {
         setAlbums(savedAlbums);
       }

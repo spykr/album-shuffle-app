@@ -2,8 +2,15 @@ import React from "react";
 
 import Styled from "./SearchResultListItem.styles";
 import { Image } from "@/components/ui";
+import { Album } from "@/utils/typings";
 
-const SearchResultListItem = ({ result, onSelect, disabled }) => {
+type Props = {
+  result: Album;
+  onSelect(): void;
+  disabled: boolean;
+};
+
+const SearchResultListItem = ({ result, onSelect, disabled }: Props) => {
   return (
     <Styled.SearchResultListItem onClick={onSelect} disabled={disabled}>
       <Styled.ImageContainer>
