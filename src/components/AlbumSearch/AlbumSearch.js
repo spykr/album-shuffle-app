@@ -46,7 +46,7 @@ const AlbumSearch = ({ albums, onSelectResult }) => {
   return (
     <Styled.AlbumSearch>
       <Styled.Input
-        placeholder="Search for albums to add to your list..."
+        placeholder="Find an album for your list..."
         onChange={e => setSearch(e.target.value)}
         value={search}
         typing={search !== ""}

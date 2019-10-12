@@ -11,8 +11,8 @@ import { Button, Image, Loader } from "@/components/ui";
 
 const AlbumDetail = ({ index }) => {
   const router = useRouter();
-  const { albums, loadedAlbums, deleteAlbum } = useContext(AlbumsContext);
-  if (!loadedAlbums) {
+  const { albums, loadingAlbums, deleteAlbum } = useContext(AlbumsContext);
+  if (loadingAlbums) {
     return <Loader backgroundColor="transparent" />;
   }
 

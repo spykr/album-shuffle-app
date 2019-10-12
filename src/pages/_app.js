@@ -1,6 +1,6 @@
 import App from "next/app";
 import Head from "next/head";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import shuffle from "lodash/shuffle";
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
@@ -29,12 +29,14 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: 100vh;
     width: 100%;
   }
 `;
 
 const MyComponent = ({ children }) => {
   const [albums, setAlbums] = useState([]);
+  const [loadingAlbums, setLoadingAlbums] = useState(true);
   const addAlbum = album => {
     setAlbums([album, ...albums]);
   };
@@ -45,14 +47,13 @@ const MyComponent = ({ children }) => {
     setAlbums(shuffle(albums));
   };
 
-  const loadedAlbums = useRef(false);
   useEffect(() => {
-    if (!loadedAlbums.current) {
+    if (loadingAlbums) {
       const savedAlbums = JSON.parse(localStorage.getItem("albums"));
       if (savedAlbums) {
         setAlbums(savedAlbums);
       }
-      loadedAlbums.current = true;
+      setLoadingAlbums(false);
     } else {
       localStorage.setItem("albums", JSON.stringify(albums));
     }
@@ -62,7 +63,7 @@ const MyComponent = ({ children }) => {
     <AlbumsContext.Provider
       value={{
         albums,
-        loadedAlbums: loadedAlbums.current,
+        loadingAlbums,
         addAlbum,
         deleteAlbum,
         shuffleAlbums,

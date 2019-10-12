@@ -8,7 +8,9 @@ import AlbumGrid from "@/components/AlbumGrid";
 
 const Home = () => {
   const router = useRouter();
-  const { albums, addAlbum, shuffleAlbums } = useContext(AlbumsContext);
+  const { albums, loadingAlbums, addAlbum, shuffleAlbums } = useContext(
+    AlbumsContext,
+  );
 
   const goToRandomAlbum = () => {
     if (albums.length === 0) return;
@@ -33,7 +35,7 @@ const Home = () => {
           </Styled.Button>
         </Styled.ButtonContainer>
       </Styled.Header>
-      <AlbumGrid albums={albums} />
+      <AlbumGrid albums={albums} loading={loadingAlbums} />
     </>
   );
 };
