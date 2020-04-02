@@ -12,7 +12,7 @@ type Props = {
 
 const AlbumGrid = ({ albums, loading }: Props) => {
   return (
-    <Styled.AlbumGrid>
+    <Styled.AlbumGrid stretch={loading || albums.length === 0}>
       {loading ? (
         <Loader backgroundColor="transparent" />
       ) : albums.length === 0 ? (

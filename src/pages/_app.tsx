@@ -54,7 +54,7 @@ const MyComponent = ({ children }: Props) => {
 
   useEffect(() => {
     if (loadingAlbums) {
-      const savedAlbums = JSON.parse(localStorage.getItem("albums") || "");
+      const savedAlbums = JSON.parse(localStorage.getItem("albums") || "[]");
       if (savedAlbums) {
         setAlbums(savedAlbums);
       }

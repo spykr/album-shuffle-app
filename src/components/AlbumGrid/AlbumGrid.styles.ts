@@ -1,10 +1,19 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const AlbumGrid = styled.div`
+type AlbumGridProps = {
+  stretch: boolean;
+};
+
+const AlbumGrid = styled.div<AlbumGridProps>`
   display: grid;
-  flex-grow: 1;
   grid-template-columns: repeat(2, 1fr);
   position: relative;
+
+  ${p =>
+    p.stretch &&
+    css`
+      flex-grow: 1;
+    `}
 
   @media (min-width: 375px) {
     grid-template-columns: repeat(3, 1fr);
