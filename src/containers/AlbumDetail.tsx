@@ -42,7 +42,7 @@ const AlbumDetail = ({ index }: Props) => {
     setLoadingAppleLink(true);
     setAppleError(false);
     pMinDelay(API.searchAppleMusic(titleUrlPlus), 500)
-      .then(response => {
+      .then((response) => {
         setLoadingAppleLink(false);
         const album =
           response &&

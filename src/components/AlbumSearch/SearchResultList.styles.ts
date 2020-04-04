@@ -19,7 +19,7 @@ const SearchResultList = styled.div<{
     max-height: 350px;
   }
 
-  ${p =>
+  ${(p) =>
     p.loadingResults &&
     !p.noResults &&
     css`

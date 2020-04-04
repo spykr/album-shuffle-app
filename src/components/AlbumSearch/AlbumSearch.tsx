@@ -21,12 +21,12 @@ const AlbumSearch = ({ albums, onSelectResult }: Props) => {
     debounce((search: string, cancelToken: CancelTokenSource) => {
       setLoading(true);
       API.searchAlbums(search, cancelToken.token)
-        .then(response => {
+        .then((response) => {
           const albums = response.data.results.albummatches.album;
           setSearchResults(albums);
           setLoading(false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (!axios.isCancel(error)) {
             console.log("Error on search:", error);
           }
@@ -53,7 +53,7 @@ const AlbumSearch = ({ albums, onSelectResult }: Props) => {
     <Styled.AlbumSearch>
       <Styled.Input
         placeholder="Find an album for your list..."
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         value={search}
         typing={search !== ""}
       />

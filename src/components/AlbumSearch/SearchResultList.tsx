@@ -26,12 +26,12 @@ const SearchResultList = ({
         <Styled.NoResultsText>No albums found</Styled.NoResultsText>
       )}
       {results &&
-        results.map(result => (
+        results.map((result) => (
           <SearchResultListItem
             key={result.url}
             result={result}
             onSelect={() => onSelectResult(result)}
-            disabled={findIndex(albums, a => a.url === result.url) !== -1}
+            disabled={findIndex(albums, (a) => a.url === result.url) !== -1}
           />
         ))}
       {loading && <Loader />}

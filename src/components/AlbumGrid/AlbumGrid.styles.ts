@@ -9,7 +9,7 @@ const AlbumGrid = styled.div<AlbumGridProps>`
   grid-template-columns: repeat(2, 1fr);
   position: relative;
 
-  ${p =>
+  ${(p) =>
     p.stretch &&
     css`
       flex-grow: 1;

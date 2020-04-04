@@ -33,7 +33,7 @@ const Input = styled.input<{
   color: white;
   font-size: 20px;
   padding: 16px;
-  ${p => p.typing && `padding-right: calc(32px + 16px)`};
+  ${(p) => p.typing && `padding-right: calc(32px + 16px)`};
   width: 100%;
 
   @media (max-width: 370px) {

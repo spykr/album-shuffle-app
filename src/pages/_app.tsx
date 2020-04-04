@@ -46,7 +46,7 @@ const MyComponent = ({ children }: Props) => {
     setAlbums([album, ...albums]);
   };
   const deleteAlbum = (album: Album) => {
-    setAlbums(albums.filter(a => a.url !== album.url));
+    setAlbums(albums.filter((a) => a.url !== album.url));
   };
   const shuffleAlbums = () => {
     setAlbums(shuffle(albums));

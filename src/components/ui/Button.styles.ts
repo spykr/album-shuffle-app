@@ -5,11 +5,11 @@ const Button = styled.button<{
   color?: string;
 }>`
   align-items: center;
-  background-color: ${p => p.backgroundColor || "#222"};
+  background-color: ${(p) => p.backgroundColor || "#222"};
   border: 0;
   border-radius: 999px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  color: ${p => p.color || "white"};
+  color: ${(p) => p.color || "white"};
   cursor: pointer;
   display: flex;
   font-size: 20px;

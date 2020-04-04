@@ -14,7 +14,7 @@ const Container = styled.div<{
   backgroundColor: string;
 }>`
   align-items: center;
-  background-color: ${p => p.backgroundColor || "rgba(0, 0, 0, 0.75)"};
+  background-color: ${(p) => p.backgroundColor || "rgba(0, 0, 0, 0.75)"};
   box-sizing: border-box;
   display: flex;
   height: 100%;
@@ -38,7 +38,7 @@ const Loader = styled.div<{
 
   &:after {
     animation: ${animation} 1.2s linear infinite;
-    border: ${p => p.borderWidth}px solid white;
+    border: ${(p) => p.borderWidth}px solid white;
     border-color: white transparent white transparent;
     border-radius: 50%;
     box-sizing: border-box;
