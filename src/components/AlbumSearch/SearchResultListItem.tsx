@@ -6,7 +6,7 @@ import { Album } from "@/utils/typings";
 
 type Props = {
   result: Album;
-  onSelect(): void;
+  onSelect(e: React.MouseEvent<HTMLButtonElement>): void;
   disabled: boolean;
 };
 

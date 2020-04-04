@@ -10,7 +10,7 @@ type Props = {
   albums: Album[];
   loading: boolean;
   results: Album[] | null;
-  onSelectResult(album: Album): void;
+  onSelectResult(album: Album, e: React.MouseEvent<HTMLButtonElement>): void;
 };
 
 const SearchResultList = ({
@@ -30,7 +30,9 @@ const SearchResultList = ({
           <SearchResultListItem
             key={result.url}
             result={result}
-            onSelect={() => onSelectResult(result)}
+            onSelect={(e) => {
+              onSelectResult(result, e);
+            }}
             disabled={findIndex(albums, (a) => a.url === result.url) !== -1}
           />
         ))}

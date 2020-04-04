@@ -66,8 +66,11 @@ const AlbumSearch = ({ albums, onSelectResult }: Props) => {
           albums={albums}
           loading={loading}
           results={searchResults}
-          onSelectResult={(album: Album) => {
-            setSearch("");
+          onSelectResult={(album, e) => {
+            // Clear the search unless the user is holding 'Shift'
+            if (!e.shiftKey) {
+              setSearch("");
+            }
             onSelectResult(album);
           }}
         />
