@@ -1,8 +1,7 @@
 export type Album = {
+  title: string;
   artist: string;
-  image: { "#text": string; size: string }[];
-  mbid: string;
-  name: string;
-  streamable: string;
+  imageUrl: string;
+  thumbnailUrl: string;
   url: string;
 };

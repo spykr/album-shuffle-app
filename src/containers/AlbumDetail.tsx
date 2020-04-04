@@ -6,9 +6,9 @@ import Error from "next/error";
 import pMinDelay from "p-min-delay";
 
 import Styled from "./AlbumDetail.styles";
-import API from "@/services/api";
+import { searchAppleMusic } from "@/services/search";
 import { Button, Image, Loader } from "@/components/ui";
-import AlbumsContext from "@/utils/context";
+import { AlbumsContext } from "@/utils/context";
 
 type Props = {
   index: number;
@@ -17,6 +17,10 @@ type Props = {
 const AlbumDetail = ({ index }: Props) => {
   const router = useRouter();
   const { albums, loadingAlbums, deleteAlbum } = useContext(AlbumsContext);
+  const [appleLink, setAppleLink] = useState(undefined);
+  const [appleError, setAppleError] = useState(false);
+  const [loadingAppleLink, setLoadingAppleLink] = useState(false);
+
   if (loadingAlbums) {
     return <Loader backgroundColor="transparent" />;
   }
@@ -26,7 +30,7 @@ const AlbumDetail = ({ index }: Props) => {
     return <Error statusCode={404} />;
   }
 
-  const title = `${album.artist} ${album.name}`;
+  const title = `${album.artist} ${album.title}`;
   const titleUrl = encodeURIComponent(title);
   const titleUrlPlus = titleUrl.replace(/%20/g, "+");
 
@@ -35,13 +39,10 @@ const AlbumDetail = ({ index }: Props) => {
     router.push("/");
   };
 
-  const [appleLink, setAppleLink] = useState(undefined);
-  const [appleError, setAppleError] = useState(false);
-  const [loadingAppleLink, setLoadingAppleLink] = useState(false);
   const getAppleLink = () => {
     setLoadingAppleLink(true);
     setAppleError(false);
-    pMinDelay(API.searchAppleMusic(titleUrlPlus), 500)
+    pMinDelay(searchAppleMusic(titleUrlPlus), 500)
       .then((response) => {
         setLoadingAppleLink(false);
         const album =
@@ -75,11 +76,11 @@ const AlbumDetail = ({ index }: Props) => {
       </Styled.NavContainer>
       <Styled.InfoContainer>
         <Styled.ImageContainer>
-          <Image alt={album.name} src={album.image[3]["#text"]} />
+          <Image alt={album.title} src={album.imageUrl} />
         </Styled.ImageContainer>
         <Styled.TextContainer>
           <Styled.AlbumArtist>{album.artist}</Styled.AlbumArtist>
-          <Styled.AlbumTitle>{album.name}</Styled.AlbumTitle>
+          <Styled.AlbumTitle>{album.title}</Styled.AlbumTitle>
         </Styled.TextContainer>
       </Styled.InfoContainer>
       <Styled.ButtonContainer>
@@ -104,7 +105,7 @@ const AlbumDetail = ({ index }: Props) => {
           <i className="fab fa-google-play" />
           Google Play
         </Button>
-        {appleLink !== null ? (
+        {appleLink !== undefined ? (
           <Button
             as="a"
             href={appleLink}

@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  db:
+    image: amazon/dynamodb-local:1.12.0
+    entrypoint: java
+    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    ports:
+      - "8000:8000"

@@ -3,7 +3,7 @@ import React from "react";
 
 import { Album } from "@/utils/typings";
 
-type Props = {
+type AlbumProps = {
   albums: Album[];
   loadingAlbums: boolean;
   addAlbum(album: Album): void;
@@ -11,10 +11,26 @@ type Props = {
   shuffleAlbums(): void;
 };
 
-export default React.createContext<Props>({
+export const AlbumsContext = React.createContext<AlbumProps>({
   albums: [],
   loadingAlbums: true,
   addAlbum: () => {},
   deleteAlbum: () => {},
   shuffleAlbums: () => {},
+});
+
+type AuthProps = {
+  loggingIn: boolean;
+  loggedIn: boolean;
+  localMode: boolean;
+  email: string;
+  token: string;
+};
+
+export const AuthContext = React.createContext<AuthProps>({
+  loggingIn: false,
+  loggedIn: false,
+  localMode: false,
+  email: "",
+  token: "",
 });

@@ -3,3 +3,4 @@ albumShuffleApp:
   inputs:
     bucketName: album-shuffle-app
     domain: ["albumshuffle", "darcyglennen.com"]
+    policy: "arn:aws:iam::675276366044:policy/AlbumShufflePolicy"

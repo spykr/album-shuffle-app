@@ -13,10 +13,10 @@ const AlbumGridItem = ({ album, index }: Props) => {
   return (
     <Link href="/album/[index]" as={`/album/${index}`} passHref>
       <Styled.Album>
-        <Styled.AlbumImage alt={album.name} src={album.image[3]["#text"]} />
+        <Styled.AlbumImage alt={album.title} src={album.imageUrl} />
         <Styled.AlbumInfo>
           <Styled.AlbumArtist>{album.artist}</Styled.AlbumArtist>
-          <Styled.AlbumTitle>{album.name}</Styled.AlbumTitle>
+          <Styled.AlbumTitle>{album.title}</Styled.AlbumTitle>
         </Styled.AlbumInfo>
       </Styled.Album>
     </Link>

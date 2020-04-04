@@ -1,24 +1,28 @@
-import axios, { CancelTokenSource } from "axios";
+import axios from "axios";
 
-const API_CONFIG = () =>
-  axios.create({
-    baseURL: "https://ws.audioscrobbler.com/2.0/",
+import { Album } from "../utils/typings";
+
+export const register = (email: string) => {
+  return axios.post("/api/register", {
+    email: email,
   });
+};
 
-export default {
-  searchAlbums: (search: string, cancelToken: CancelTokenSource["token"]) =>
-    API_CONFIG().get(
-      "?method=album.search&api_key=6c85fd2ff909d79aa570b31ecc14fca3&format=json",
-      {
-        cancelToken,
-        params: {
-          album: search,
-          limit: 10,
-        },
-      },
-    ),
-  searchAppleMusic: (search: string) =>
-    API_CONFIG().get(
-      `https://itunes.apple.com/search?media=music&entity=album&limit=1&term=${search}`,
-    ),
+export const login = (email: string, token: string) => {
+  return axios.post("/api/login", {
+    email: email,
+    token: token,
+  });
+};
+
+export const getAlbums = () => {
+  return axios.get("/api/albums").then((response) => {
+    return response.data as Album[];
+  });
+};
+
+export const saveAlbums = (albums: Album[]) => {
+  return axios.post("/api/albums", {
+    albums: JSON.stringify(albums),
+  });
 };

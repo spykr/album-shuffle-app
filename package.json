@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev:infra": "LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" npm run infra",
+    "dev": "BUNDLE_AWS_SDK=1 AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" next dev",
+    "infra": "node src/infrastructure/provisionTable",
     "build": "next build",
     "start": "next start",
     "lint": "eslint './src/**/*.{ts,tsx}'",
@@ -12,14 +14,23 @@
   },
   "dependencies": {
     "@sentry/browser": "^5.15.4",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/js-cookie": "^2.2.5",
+    "@types/nodemailer": "^6.4.0",
+    "@types/uuid": "^7.0.2",
+    "aws-sdk": "^2.653.0",
     "axios": "^0.19.2",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "next": "^9.3.4",
+    "next-connect": "^0.6.1",
+    "nodemailer": "^6.4.6",
     "p-min-delay": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.0.1",
-    "styled-normalize": "^8.0.7"
+    "styled-normalize": "^8.0.7",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.149",
@@ -34,6 +45,7 @@
     "eslint-plugin-better-styled-components": "^1.1.2",
     "eslint-plugin-react": "^7.19.0",
     "prettier": "^2.0.2",
+    "serverless": "^1.67.0",
     "serverless-next.js": "^1.9.7",
     "typescript": "^3.8.3"
   }

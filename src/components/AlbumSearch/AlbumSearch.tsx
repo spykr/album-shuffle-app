@@ -3,7 +3,7 @@ import axios, { CancelTokenSource } from "axios";
 import debounce from "lodash/debounce";
 
 import Styled from "./AlbumSearch.styles";
-import API from "@/services/api";
+import { searchAlbums } from "@/services/search";
 import SearchResultList from "./SearchResultList";
 import { Album } from "@/utils/typings";
 
@@ -15,14 +15,13 @@ type Props = {
 const AlbumSearch = ({ albums, onSelectResult }: Props) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState<Album[] | null>(null);
 
   const searchCall = useRef(
     debounce((search: string, cancelToken: CancelTokenSource) => {
       setLoading(true);
-      API.searchAlbums(search, cancelToken.token)
-        .then((response) => {
-          const albums = response.data.results.albummatches.album;
+      searchAlbums(search, cancelToken.token)
+        .then((albums) => {
           setSearchResults(albums);
           setLoading(false);
         })
